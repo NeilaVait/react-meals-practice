@@ -10,8 +10,8 @@ const Cart = (props) => {
     </ul>
   );
 
-  return (
-    <Modal>
+  return props.modalMode ? (
+    <Modal handleCloseModal={props.handleCloseModal}>
       {cartItems}
 
       <div className={classes.total}>
@@ -19,11 +19,13 @@ const Cart = (props) => {
         <span>$34.99</span>
       </div>
       <div className={classes.actions}>
-        <button className={classes['button--alt']}>Close</button>
+        <button onClick={props.handleCloseModal} className={classes['button--alt']}>
+          Close
+        </button>
         <button className={classes.button}>Order</button>
       </div>
     </Modal>
-  );
+  ) : null;
 };
 
 export default Cart;
