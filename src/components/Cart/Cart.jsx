@@ -22,7 +22,9 @@ const Cart = (props) => {
         <button onClick={props.handleCloseModal} className={classes['button--alt']}>
           Close
         </button>
-        <button className={classes.button}>Order</button>
+        <button onClick={props.handleCloseModal} className={classes.button}>
+          Order
+        </button>
       </div>
     </Modal>
   ) : null;
