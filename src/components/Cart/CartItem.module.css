@@ -1,0 +1,39 @@
+.cart-item-buttons > button {
+  float: right;
+  width: 45px;
+  height: 35px;
+  font-size: 20px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: 1px solid brown;
+  cursor: pointer;
+  color: brown;
+}
+
+.cart-item-buttons {
+  position: absolute;
+  right: 10px;
+  top: 20px;
+}
+
+.amount {
+  border: 1px solid grey;
+  padding: 3px 10px;
+  border-radius: 5px;
+  margin-left: 30px;
+}
+
+.price {
+  color: brown;
+  font-weight: bold;
+}
+
+.cart-item {
+  border-bottom: 2px solid brown;
+  padding-bottom: 30px;
+  position: relative;
+}
+
+.cart-item > h3 {
+  margin-bottom: 5px;
+}
