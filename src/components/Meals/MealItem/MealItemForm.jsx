@@ -1,9 +1,12 @@
+import { useState, useContext } from 'react';
 import classes from './MealItemForm.module.css';
 import Input from './../../UI/Input';
-import { useState } from 'react';
+import CartContext from './../../../store/cart-context';
 
 const MealItemForm = (props) => {
-  const [formQty, setFormQty] = useState(1);
+  const cartCtx = useContext(CartContext);
+
+  const [formQty, setFormQty] = useState('1');
 
   const inputValueHandler = (event) => {
     setFormQty(event.target.value);
@@ -11,7 +14,9 @@ const MealItemForm = (props) => {
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(formQty);
+    // isitikinti kad ivesta reiksme tarp 1 ir 5, netuscia ir siusti tik tada
+    if (formQty.trim().length === 0 || +formQty < 1 || +formQty > 5) return;
+    cartCtx.addItem({ id: 'c1', name: 'sushi', price: 12.99, amount: 2 });
   };
 
   return (
@@ -20,8 +25,9 @@ const MealItemForm = (props) => {
         onChange={inputValueHandler}
         value={formQty}
         label="Amount"
-        input={{ id: 'amount_' + props.id, type: 'number', min: 1, max: 5, step: 1 }}
+        input={{ id: 'amount_' + props.id, type: 'number', step: 1 }}
       />
+
       <button>+ Add</button>
     </form>
   );
