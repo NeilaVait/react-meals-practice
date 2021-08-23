@@ -1,7 +1,7 @@
 import classes from './CartItem.module.css';
 
 const CartItem = (props) => {
-  const price = `$${props.price.todFixed(2)}`;
+  const price = `$${props.price.toFixed(2)}`;
 
   return (
     <li className={classes['cart-item']}>
@@ -13,8 +13,8 @@ const CartItem = (props) => {
         </div>
       </div>
       <div className={classes.actions}>
-        <button>-</button>
-        <button>+</button>
+        <button onClick={props.onAddItem}>-</button>
+        <button onClick={props.onRemoveItem}>+</button>
       </div>
     </li>
   );
