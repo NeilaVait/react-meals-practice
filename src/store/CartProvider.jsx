@@ -9,11 +9,12 @@ const defaultCartState = {
 // pagrindine reducer fn ===================================================
 const cartReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD':
+    case 'ADD': {
       // visa pridejimo i cart logika ir grazinti nauja state versija
       const { item } = action;
-      const updatedTotalAmount = state.totalAmount + item.price * item.amount;
-      // itemas jau yra, reikia padidint kieki
+      let updatedTotalAmount = state.totalAmount + item.price * item.amount;
+      // 1a itemas jau yra, reikia padidint kieki
+      // galima perdaryti i mondernesni varianta su find
       const existingCartItemIndex = state.items.findIndex((cartItem) => cartItem.id === item.id);
       const existingCartItem = state.items[existingCartItemIndex];
 
@@ -27,7 +28,7 @@ const cartReducer = (state, action) => {
         updatedItems = [...state.items];
         updatedItems[existingCartItemIndex] = updatedItem;
       } else {
-        // itemo nera krepsely
+        // 2a itemo nera krepsely
         updatedItems = [...state.items, item];
       }
 
@@ -35,8 +36,30 @@ const cartReducer = (state, action) => {
         items: updatedItems,
         totalAmount: updatedTotalAmount,
       };
+    }
     case 'REMOVE':
-      throw new Error('remove item not completed');
+      //surast itema su findu
+      // if jei kiekis vienetas pasalinam,jei daugiau nuimam amount
+
+      const existingCartItem = state.items.find((i) => i.id === action.id);
+
+      let updatedItems;
+      const updatedTotalAmount = state.totalAmount - existingCartItem.price;
+
+      if (existingCartItem.amount > 1) {
+        updatedItems = state.items.map((i) => {
+          if (i.id === action.id) return { ...i, amount: i.amount - 1 };
+          return i;
+        });
+      } else if (existingCartItem.amount === 1) {
+        updatedItems = state.items.filter((i) => i.id !== action.id);
+      }
+      return {
+        items: updatedItems,
+        totalAmount: updatedTotalAmount,
+      };
+
+    // throw new Error('remove item not completed');
     default:
       return state;
   }
