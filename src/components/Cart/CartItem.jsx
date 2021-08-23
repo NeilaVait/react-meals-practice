@@ -1,16 +1,22 @@
 import classes from './CartItem.module.css';
 
-const CartItem = ({ item }) => {
+const CartItem = (props) => {
+  const price = `$${props.price.todFixed(2)}`;
+
   return (
-    <div className={classes['cart-item']}>
-      <h3>{item.name}</h3>
-      <span className={classes.price}>${item.price}</span>
-      <span className={classes.amount}>x{item.amount}</span>
-      <div className={classes['cart-item-buttons']}>
-        <button>+</button>
-        <button>-</button>
+    <li className={classes['cart-item']}>
+      <div>
+        <h2>{props.name}</h2>
+        <div className={classes.summary}>
+          <span className={classes.price}>{price}</span>
+          <span className={classes.amount}>x {props.amount}</span>
+        </div>
       </div>
-    </div>
+      <div className={classes.actions}>
+        <button>-</button>
+        <button>+</button>
+      </div>
+    </li>
   );
 };
 
