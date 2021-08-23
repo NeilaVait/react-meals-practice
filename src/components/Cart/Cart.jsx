@@ -8,11 +8,13 @@ const Cart = (props) => {
   const cartCtx = useContext(CartContext);
   console.log(cartCtx);
 
-  const cartItemAddHander = (item) => {
+  const cartItemAddHandler = (item) => {
     console.log(item);
+    cartCtx.addItem(item);
   };
   const cartItemRemoveHandler = (id) => {
     console.log(id);
+    cartCtx.removeItem(id);
   };
 
   const cartItems = (
@@ -21,7 +23,7 @@ const Cart = (props) => {
         <CartItem
           key={item.id}
           // budas prideti fn argumenta kai jo paprastai negalim prideti
-          onAddItem={cartItemAddHander.bind(null, item)}
+          onAddItem={cartItemAddHandler.bind(null, item)}
           onRemoveItem={cartItemRemoveHandler.bind(null, item.id)}
           {...item}
         />

@@ -12,8 +12,25 @@ const cartReducer = (state, action) => {
     case 'ADD':
       // visa pridejimo i cart logika ir grazinti nauja state versija
       const { item } = action;
-      const updatedItems = [...state.items, item];
       const updatedTotalAmount = state.totalAmount + item.price * item.amount;
+      // itemas jau yra, reikia padidint kieki
+      const existingCartItemIndex = state.items.findIndex((cartItem) => cartItem.id === item.id);
+      const existingCartItem = state.items[existingCartItemIndex];
+
+      let updatedItems;
+
+      if (existingCartItem) {
+        const updatedItem = {
+          ...existingCartItem,
+          amount: existingCartItem.amount + item.amount,
+        };
+        updatedItems = [...state.items];
+        updatedItems[existingCartItemIndex] = updatedItem;
+      } else {
+        // itemo nera krepsely
+        updatedItems = [...state.items, item];
+      }
+
       return {
         items: updatedItems,
         totalAmount: updatedTotalAmount,
