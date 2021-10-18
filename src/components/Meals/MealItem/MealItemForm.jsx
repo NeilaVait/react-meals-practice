@@ -14,7 +14,6 @@ const MealItemForm = (props) => {
     event.preventDefault();
     setAmountIsValid(true);
 
-    // isitikinti kad ivesta reiksme tarp 1 ir 5, netuscia ir siusti tik tada
     if (formQty.trim().length === 0 || +formQty < 1 || +formQty > 5) return setAmountIsValid(false);
 
     props.onAddItem(+formQty);

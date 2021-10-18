@@ -6,14 +6,12 @@ import CartItem from './CartItem';
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
-  console.log(cartCtx);
 
   const cartItemAddHandler = (item) => {
-    console.log(item);
     cartCtx.addItem({ ...item, amount: 1 });
   };
+
   const cartItemRemoveHandler = (id) => {
-    console.log(id);
     cartCtx.removeItem(id);
   };
 
@@ -22,7 +20,6 @@ const Cart = (props) => {
       {cartCtx.items.map((item) => (
         <CartItem
           key={item.id}
-          // budas prideti fn argumenta kai jo paprastai negalim prideti
           onAddItem={cartItemAddHandler.bind(null, item)}
           onRemoveItem={cartItemRemoveHandler.bind(null, item.id)}
           {...item}
